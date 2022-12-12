@@ -579,7 +579,7 @@ label{
     ;
 }
 .styled-table thead tr {
-    background-color: #009879;
+    background-color: #000000;
     color: #ffffff;
     text-align: left;
 }
@@ -596,13 +596,12 @@ label{
 }
 
 .styled-table tbody tr:last-of-type {
-    border-bottom: 2px solid #009879;
+    border-bottom: 2px solid #000000;
 }
 .styled-table tbody tr.active-row {
     font-weight: bold;
-    color: #009879;
+    color: #000000;
 }
-
 a.action-delete {
     background-color: lightcoral;
     
@@ -613,7 +612,6 @@ a.action-delete {
 a.action-view{
     background-color: blue;
 }
-
 td a {
     padding: 5px 10px;
     font-size: 12px;
@@ -625,4 +623,22 @@ td a {
     margin-top: 10px;
     display: inline-flex;
     bottom: 0px;
+}
+a.button {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 6px;
+    box-sizing: border-box;
+    border: 0;
+    text-decoration: none;
+}
+
+.button {
+    background-color: #90d3c9;
+    color: white;
+    border: none;
+}
+.table-container .button {
+    width: fit-content;
 }

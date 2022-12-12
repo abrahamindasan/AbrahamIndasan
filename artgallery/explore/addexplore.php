@@ -1,37 +1,6 @@
 <?php
 
-  include('../connection.php');
-  if (isset($_GET['id'])){
-  $id = $_GET['id'];
-  mysqli_query($conn,"DELETE FROM `registration` WHERE  ='$id'");
-	header('location:../explore/explore1.php');
-
-  }
-  if(isset($_POST['submit'])){
-  $number = $_POST['number'];
-  $text = $_POST['text'];
-  $image = $_FILES['file'];
-
-  $imagefilename = $image['name'];
-  $imagefileerror = $image['error'];
-  $imagefiletemp = $image['tmp_name'];
-
-  $filename_separate = explode('.', $imagefilename);
-  $file_extension = strtolower(end($filename_separate));
-
-  $extension = array('jpeg', 'jpg', 'jfif', 'png');
-  if (in_array($file_extension,$extension)){
-    $upload_image = ''. $imagefilename;
-    move_uploaded_file($imagefiletemp, $upload_image);
-    $sql = "INSERT INTO `registration` (number,text,image) VALUES ('$number', '$text', '$upload_image')";
-    $result = mysqli_query ($con,$sql);
-    if($result){
-    }else{
-      die(mysqli_error($con));
-    }
-  }
-}
-
+    require_once('../operation.php');
 
 
     session_start();
@@ -76,12 +45,6 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
     <link rel="stylesheet" href="../explore/style.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
-    <style>
-        img{
-          width: 300px;
-        }
-
-    </style>
   </head>
   <body>
     
@@ -107,37 +70,12 @@
                     <span class="links-name">Logout</span>
                 </a>  
               </nav>
-              <h1 class = "text-center my-4">Pixel Art</h1>
-              <div class="containter mt-5 d-flex justify-content-center">
-                <table class = "table table-bordered w-100">
-                <thead class = "table-dark">
-                <tr>
-                <th scope = "col">#</th>
-                <th scope = "col">Image</th>
-                <th scope = "col">Description</th>
-                <td><a href = "../explore/addexplore.php" class = "button">Add</th>
-                <td><a href = "../admin/dashboard.php" class = "button">Back</td>
 
-              </tr>
-            </thead>
-            <tbody>
-              <?php
-              $sql = "SELECT * FROM `registration`";
-              $result = mysqli_query($con,$sql);
-              $row = mysqli_fetch_assoc($result);
-              while ($row = mysqli_fetch_assoc($result)) {
-                $id = $row['id'];
-                $text = $row['text'];
-                $image = $row['image'];
-              echo '<tr>
-              <td>' . $id . '</td>
-              <td>' . $text . '</td>
-              <td><img src = ' . $image . ' /></td>
-              <td><a class="button" href="#">Edit</a>
-              <td><a class="button" href="#">Delete</a>
-              </tr>';
-              }
-              ?>
-
-              <body>
-<html>
+        <h1 class = "text-center my-3">Upload Txt and Images</h1>
+        <div class = "container d-flex justify content-center">
+            <form action = "../explore/explore1.php" method="post" class= "w-50" enctype="multipart/form-data">
+            <?php inputFields("Number","number","","text") ?>
+            <?php inputFields("Text","text","","text") ?>
+            <?php inputFields("file","file","","file") ?>
+            <button class="btn btn-dark" type = "submit" name = "submit">Submit</button>
+</div>
